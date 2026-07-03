@@ -8,7 +8,7 @@ def bisection(f: Callable, a: float, b: float, xtol=0.01, maxiter=3) -> Tuple[fl
     :param f: La función cuya raíz se busca.
     :param a: Extremo izquierdo del intervalo.
     :param b: Extremo derecho del intervalo.
-    :param xtol: Tolerancia de error en la raíz (diferencia mínima entre a y b).
+    :param xtol: Tolerancia de error en la raíz.
     :param maxiter: Número máximo de iteraciones permitidas.
     :return: Una tupla que contiene la aproximación de la raíz y el número de iteraciones realizadas.
     :raise ValueError: Si f(a) y f(b) tienen el mismo signo, lo que significa que no hay una raíz en el intervalo.
@@ -24,7 +24,7 @@ def bisection(f: Callable, a: float, b: float, xtol=0.01, maxiter=3) -> Tuple[fl
         c = (a + b) / 2
         a_viejo = a
         if abs((((c - a)/c)*100)) <= xtol:
-            return abs((((c - a)/c)*100)), nit
+            return "error: ",abs((((c - a)/c)*100)), " iteraciones: ",nit
         elif f(c) * f(a) < 0:
             b = c
         else:

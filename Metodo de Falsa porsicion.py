@@ -10,7 +10,7 @@ def falsa_posicion(f: Callable, a: float, b: float, xtol=0.01, maxiter=4) -> Tup
     :param f: La función cuya raíz se busca.
     :param a: Extremo izquierdo del intervalo.
     :param b: Extremo derecho del intervalo.
-    :param xtol: Tolerancia de error en la raíz (diferencia mínima entre a y b).
+    :param xtol: Tolerancia de error en la raíz.
     :param maxiter: Número máximo de iteraciones permitidas.
     :return: Una tupla que contiene la aproximación de la raíz y el número de iteraciones realizadas.
     :raise ValueError: Si f(a) y f(b) tienen el mismo signo, lo que significa que no hay una raíz en el intervalo.
@@ -22,7 +22,7 @@ def falsa_posicion(f: Callable, a: float, b: float, xtol=0.01, maxiter=4) -> Tup
 
 
     with localcontext() as ctx:
-        ctx.prec = 100  # 100 digits precision
+        ctx.prec = 100  # 100 digitos de precision
     c = Decimal(0)
     
     nit = 0
@@ -32,13 +32,13 @@ def falsa_posicion(f: Callable, a: float, b: float, xtol=0.01, maxiter=4) -> Tup
         a_viejo = a
         print(c)
         if abs(((c - Decimal(a))/c)*100) <= xtol:
-            return c, nit
+            return "error: ",abs(((c - Decimal(a))/c)*100)," Iteraciones: " , nit
         elif f(c) * f(Decimal(a)) < 0:
             b = c
         else:
             a = c
 
-    return ("El número máximo de iteraciones permitidas ha sido excedido." , "Iteraciones:", nit , "error:", abs(((c - Decimal(a_viejo))/c)*100))
+    return ("El número máximo de iteraciones permitidas ha sido excedido." , "Iteraciones:", nit , " error:", abs(((c - Decimal(a_viejo))/c)*100))
 
 def graficar_funcion(funcion: callable):
     
@@ -60,7 +60,6 @@ def graficar_funcion(funcion: callable):
     
     # Mostrarlo.
     pyplot.show()
-
 
 
 def fx(x):
